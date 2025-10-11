@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    private void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
     public void GameOver()
     {
         gameRunning = false;
