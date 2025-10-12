@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     // public
     public bool gameRunning = true;
+    public GameObject pauseButton;
+    public GameObject gamePausedPanel;
 
     // SerializeField
 
@@ -23,13 +25,17 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void GamePaused()
+    public void GamePaused()
     {
         Time.timeScale = 0;
+        pauseButton.gameObject.SetActive(false);
+        gamePausedPanel.gameObject.SetActive(true);
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
+        gamePausedPanel.gameObject.SetActive(false);
+        pauseButton.gameObject.SetActive(true);
         Time.timeScale = 1;
     }
 
