@@ -45,6 +45,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Key"))
+        {
+            keyCollected++;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("Bush"))
+        {
+            visibleByEnemy = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
     }
 }

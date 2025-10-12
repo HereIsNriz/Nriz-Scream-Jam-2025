@@ -15,6 +15,9 @@ public class EnemyController : MonoBehaviour
     private PlayerController playerController;
     private Rigidbody2D enemyRb;
     private float boundary = 14.3f;
+    private float changePositionDelay = 3f;
+    private float randomX;
+    private float randomY;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,8 @@ public class EnemyController : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody2D>();
+        randomX = Random.Range(-boundary, boundary);
+        randomY = Random.Range(-boundary, boundary);
     }
 
     // Update is called once per frame
@@ -40,7 +45,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                EnemyPatrolling();
+                StartCoroutine(EnemyPatrolPosition());
             }
         }
     }
@@ -48,6 +53,12 @@ public class EnemyController : MonoBehaviour
     private float RandomPosition()
     {
         return Random.Range(-boundary, boundary);
+    }
+
+    private IEnumerator EnemyPatrolPosition()
+    {
+        yield return new WaitForSeconds(changePositionDelay);
+        EnemyPatrolling();
     }
 
     private void EnemyPatrolling()
