@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
 
     // SerializeField
     [SerializeField] float playerSpeed;
+    [SerializeField] int keyCollected;
 
     // private
     private GameManager gameManager;
     private Rigidbody2D playerRb;
-    private int keyCollected;
-    private int totalKeys = 30;
+    private int totalKeys = 20;
 
     // Start is called before the first frame update
     void Start()
