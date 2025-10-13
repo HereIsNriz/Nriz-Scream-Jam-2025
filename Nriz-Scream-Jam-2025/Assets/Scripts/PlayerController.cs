@@ -67,6 +67,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bush"))
+        {
+            visibleByEnemy = true;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

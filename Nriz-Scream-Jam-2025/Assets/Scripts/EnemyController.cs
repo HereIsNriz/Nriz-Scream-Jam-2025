@@ -14,10 +14,8 @@ public class EnemyController : MonoBehaviour
     private GameManager gameManager;
     private PlayerController playerController;
     private Rigidbody2D enemyRb;
+    private Vector2 enemyDestination;
     private float boundary = 14.3f;
-    private float changePositionDelay = 3f;
-    private float randomX;
-    private float randomY;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +23,7 @@ public class EnemyController : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody2D>();
-        randomX = Random.Range(-boundary, boundary);
-        randomY = Random.Range(-boundary, boundary);
+        enemyDestination = SetEnemyPosition().normalized;
     }
 
     // Update is called once per frame
@@ -45,7 +42,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                StartCoroutine(EnemyPatrolPosition());
+                EnemyPatrolling();
             }
         }
         else
@@ -59,17 +56,14 @@ public class EnemyController : MonoBehaviour
         return Random.Range(-boundary, boundary);
     }
 
-    private IEnumerator EnemyPatrolPosition()
+    private Vector2 SetEnemyPosition()
     {
-        yield return new WaitForSeconds(changePositionDelay);
-        EnemyPatrolling();
+        return new Vector2(RandomPosition(), RandomPosition());
     }
 
     private void EnemyPatrolling()
     {
-        Vector2 enemyPatrolling = new Vector2(RandomPosition(), RandomPosition()).normalized;
-
-        enemyRb.velocity = enemyPatrolling * enemySpeed * Time.deltaTime;
+        enemyRb.velocity = enemyDestination * enemySpeed * Time.deltaTime;
     }
 
     private void EnemyChasingPlayer()

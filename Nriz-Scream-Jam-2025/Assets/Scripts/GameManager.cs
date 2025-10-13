@@ -46,12 +46,14 @@ public class GameManager : MonoBehaviour
     {
         gameRunning = false;
         gameOverPanel.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(false);
     }
 
     public void GameWinning()
     {
         gameRunning = false;
         gameWinPanel.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(false);
     }
 
     public void GoBackToMenu()
