@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     public bool gameRunning = true;
     public GameObject pauseButton;
     public GameObject gamePausedPanel;
+    public GameObject gameOverPanel;
+    public GameObject gameWinPanel;
 
     // SerializeField
 
@@ -42,10 +45,17 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameRunning = false;
+        gameOverPanel.gameObject.SetActive(true);
     }
 
     public void GameWinning()
     {
         gameRunning = false;
+        gameWinPanel.gameObject.SetActive(true);
+    }
+
+    public void GoBackToMenu()
+    {
+        SceneManager.LoadScene("Menu Scene");
     }
 }

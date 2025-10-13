@@ -48,6 +48,10 @@ public class EnemyController : MonoBehaviour
                 StartCoroutine(EnemyPatrolPosition());
             }
         }
+        else
+        {
+            enemyRb.velocity = Vector3.zero;
+        }
     }
 
     private float RandomPosition()

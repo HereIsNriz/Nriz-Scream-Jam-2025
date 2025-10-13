@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     private Rigidbody2D playerRb;
     private int keyCollected;
+    private int totalKeys = 30;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,10 @@ public class PlayerController : MonoBehaviour
         {
             MovePlayer();
         }
+        else
+        {
+            playerRb.velocity = Vector3.zero;
+        }
     }
 
     private void MovePlayer()
@@ -45,20 +50,33 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Key"))
+        if (collision.gameObject.CompareTag("Key"))
         {
             keyCollected++;
             Destroy(collision.gameObject);
         }
 
-        if (collision.CompareTag("Bush"))
+        if (collision.gameObject.CompareTag("Bush"))
         {
             visibleByEnemy = false;
+        }
+
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            gameManager.GameWinning();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            gameManager.GameOver();
+        }
 
+        if (collision.gameObject.CompareTag("Door") && keyCollected == totalKeys)
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }
