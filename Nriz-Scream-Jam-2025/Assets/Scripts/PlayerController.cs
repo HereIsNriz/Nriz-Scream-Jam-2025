@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     // SerializeField
     [SerializeField] float playerSpeed;
     [SerializeField] int keyCollected;
+    [SerializeField] TextMeshProUGUI keysCollectedText;
 
     // private
     private GameManager gameManager;
@@ -31,10 +33,12 @@ public class PlayerController : MonoBehaviour
         if (gameManager.gameRunning)
         {
             MovePlayer();
+            keysCollectedText.text = string.Format("Keys Collected: {0:00} / {1}", keyCollected, totalKeys);
         }
         else
         {
             playerRb.velocity = Vector3.zero;
+            keysCollectedText.gameObject.SetActive(false);
         }
     }
 
