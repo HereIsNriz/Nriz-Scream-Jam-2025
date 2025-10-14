@@ -14,8 +14,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gamePausedPanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject gameWinPanel;
+    [SerializeField] AudioSource gameAudio;
     [SerializeField] AudioSource buttonsAudio;
-
+    [SerializeField] AudioSource gameOverAudio;
+    [SerializeField] AudioSource gameWinningAudio;
+    
     // private 
     private float audioDelay = 0.2f;
 
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
         pauseButton.gameObject.SetActive(false);
         gamePausedPanel.gameObject.SetActive(true);
         gamePaused = true;
+        gameAudio.Stop();
     }
 
     public void ResumeGame()
@@ -47,10 +51,13 @@ public class GameManager : MonoBehaviour
         pauseButton.gameObject.SetActive(true);
         Time.timeScale = 1;
         gamePaused = false;
+        gameAudio.Play();
     }
 
     public void GameOver()
     {
+        gameAudio.Stop();
+        gameOverAudio.PlayOneShot(gameOverAudio.clip, 1f);
         gameRunning = false;
         gameOverPanel.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(false);
@@ -58,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     public void GameWinning()
     {
+        gameAudio.Stop();
+        gameWinningAudio.PlayOneShot(gameWinningAudio.clip, 1f);
         gameRunning = false;
         gameWinPanel.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(false);
