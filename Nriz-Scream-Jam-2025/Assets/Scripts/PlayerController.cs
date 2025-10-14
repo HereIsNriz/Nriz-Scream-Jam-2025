@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
         visibleByEnemy = true;
         keyCollected = 0;
+        keysCollectedText.text = string.Format("Keys Collected: {0:00} / {1}", keyCollected, totalKeys);
     }
 
     private void FixedUpdate()
@@ -34,7 +35,6 @@ public class PlayerController : MonoBehaviour
         if (gameManager.gameRunning)
         {
             MovePlayer();
-            keysCollectedText.text = string.Format("Keys Collected: {0:00} / {1}", keyCollected, totalKeys);
             if (gameManager.gamePaused)
             {
                 keysCollectedText.gameObject.SetActive(false);
@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
             keysCollectedAudio.PlayOneShot(keysCollectedAudio.clip, 1f);
             keyCollected++;
             Destroy(collision.gameObject);
+            keysCollectedText.text = string.Format("Keys Collected: {0:00} / {1}", keyCollected, totalKeys);
         }
 
         if (collision.gameObject.CompareTag("Bush"))

@@ -9,12 +9,12 @@ public class EnemyController : MonoBehaviour
 
     // SerializeField
     [SerializeField] float enemySpeed;
+    [SerializeField] Vector2 enemyDestination;
 
     // private
     private GameManager gameManager;
     private PlayerController playerController;
     private Rigidbody2D enemyRb;
-    private Vector2 enemyDestination;
     private float boundary = 14.3f;
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody2D>();
-        enemyDestination = SetEnemyPosition().normalized;
+        enemyDestination = SetEnemyPosition();
     }
 
     // Update is called once per frame
@@ -43,6 +43,10 @@ public class EnemyController : MonoBehaviour
             else
             {
                 EnemyPatrolling();
+                if ((Vector2)enemyRb.transform.position == enemyDestination)
+                {
+                    enemyDestination = SetEnemyPosition();
+                }
             }
         }
         else
@@ -63,7 +67,9 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyPatrolling()
     {
-        enemyRb.velocity = enemyDestination * enemySpeed * Time.deltaTime;
+        Vector2 enemyTargetPosition = (enemyDestination - (Vector2)enemyRb.transform.position).normalized;
+
+        enemyRb.velocity = enemyTargetPosition * enemySpeed * Time.deltaTime;
     }
 
     private void EnemyChasingPlayer()
