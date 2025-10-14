@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float playerSpeed;
     [SerializeField] int keyCollected;
     [SerializeField] TextMeshProUGUI keysCollectedText;
+    [SerializeField] AudioSource keysCollectedAudio;
 
     // private
     private GameManager gameManager;
@@ -34,6 +35,14 @@ public class PlayerController : MonoBehaviour
         {
             MovePlayer();
             keysCollectedText.text = string.Format("Keys Collected: {0:00} / {1}", keyCollected, totalKeys);
+            if (gameManager.gamePaused)
+            {
+                keysCollectedText.gameObject.SetActive(false);
+            }
+            else
+            {
+                keysCollectedText.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -56,6 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Key"))
         {
+            keysCollectedAudio.PlayOneShot(keysCollectedAudio.clip, 1f);
             keyCollected++;
             Destroy(collision.gameObject);
         }

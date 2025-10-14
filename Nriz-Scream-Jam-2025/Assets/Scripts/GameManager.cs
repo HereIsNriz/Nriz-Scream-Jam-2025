@@ -7,14 +7,17 @@ public class GameManager : MonoBehaviour
 {
     // public
     public bool gameRunning = true;
-    public GameObject pauseButton;
-    public GameObject gamePausedPanel;
-    public GameObject gameOverPanel;
-    public GameObject gameWinPanel;
+    public bool gamePaused = false;
 
     // SerializeField
+    [SerializeField] GameObject pauseButton;
+    [SerializeField] GameObject gamePausedPanel;
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] GameObject gameWinPanel;
+    [SerializeField] AudioSource buttonsAudio;
 
-    // private
+    // private 
+    private float audioDelay = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +33,20 @@ public class GameManager : MonoBehaviour
 
     public void GamePaused()
     {
+        buttonsAudio.PlayOneShot(buttonsAudio.clip, 1f);
         Time.timeScale = 0;
         pauseButton.gameObject.SetActive(false);
         gamePausedPanel.gameObject.SetActive(true);
+        gamePaused = true;
     }
 
     public void ResumeGame()
     {
+        buttonsAudio.PlayOneShot(buttonsAudio.clip, 1f);
         gamePausedPanel.gameObject.SetActive(false);
         pauseButton.gameObject.SetActive(true);
         Time.timeScale = 1;
+        gamePaused = false;
     }
 
     public void GameOver()
@@ -58,6 +65,13 @@ public class GameManager : MonoBehaviour
 
     public void GoBackToMenu()
     {
+        buttonsAudio.PlayOneShot(buttonsAudio.clip, 1f);
+        StartCoroutine(BackToMenuAudio());
+    }
+
+    private IEnumerator BackToMenuAudio()
+    {
+        yield return new WaitForSeconds(audioDelay);
         SceneManager.LoadScene("Menu Scene");
     }
 }
