@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     private GameManager gameManager;
     private PlayerController playerController;
     private Rigidbody2D enemyRb;
-    private float boundary = 14.3f;
+    private float boundary = 13f;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,9 @@ public class EnemyController : MonoBehaviour
             else
             {
                 EnemyPatrolling();
-                if ((Vector2)enemyRb.transform.position == enemyDestination)
+                int enemyPositionX = (int)enemyRb.transform.position.x;
+                int enemyDestinationX = (int)enemyDestination.x;
+                if (enemyPositionX == enemyDestinationX)
                 {
                     enemyDestination = SetEnemyPosition();
                 }
@@ -52,6 +54,14 @@ public class EnemyController : MonoBehaviour
         else
         {
             enemyRb.velocity = Vector3.zero;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bush"))
+        {
+            enemyDestination = SetEnemyPosition();
         }
     }
 
