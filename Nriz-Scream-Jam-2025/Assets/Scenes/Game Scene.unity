@@ -1541,7 +1541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1863930382}
-  enemySpeed: 170
+  enemySpeed: 180
   enemyDestination: {x: 0, y: 0}
 --- !u!95 &475576972
 Animator:
