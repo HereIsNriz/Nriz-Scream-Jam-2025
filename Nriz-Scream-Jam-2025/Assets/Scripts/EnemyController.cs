@@ -26,12 +26,6 @@ public class EnemyController : MonoBehaviour
         enemyDestination = SetEnemyPosition();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         if (gameManager.gameRunning)

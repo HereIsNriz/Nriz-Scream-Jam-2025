@@ -5,25 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    //
-
-    //
     [SerializeField] AudioSource buttonAudio;
 
-    //
     private float audioDelay = 0.2f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void PlayButton()
     {
@@ -46,7 +30,7 @@ public class MenuManager : MonoBehaviour
     private IEnumerator ExitButtonCouroutine()
     {
         yield return new WaitForSeconds(audioDelay);
-        //Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 }
